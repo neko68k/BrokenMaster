@@ -1,33 +1,86 @@
 package com.example.neko.brokenmaster;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    View.OnClickListener instHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+            String inst = new String();
+            inst = "Find the \"First Locked Position\"\n\n" +
+                    "Set the dial to 0.\n" +
+                    "Apply full pressure upward on the shackle as if trying to open it.\n" +
+                    "Rotate dial to the left (towards 10) hard until the dial gets locked.\n" +
+                    "Notice how the dial is locked into a small groove. If you're directly between two digits such as 3 and 4, release the shackle and turn the dial left further until you're into the next locked groove. However, if the dial is between two half digits (e.g., 2.5 and 3.5), then enter the digit in-between (e.g., 3) into First Locked Position in the calculator below.\n" +
+                    "\nFind the \"Second Locked Position\"\n\n" +
+                    "Do all of the above again until you find the second digit below 11 that is between two half digits (e.g., 5.5 and 6.5), and enter the whole number (e.g., 7) into Second Locked Position in the calculator below.\n" +
+                    "\nFind the \"Resistant Location\"\n\n" +
+                    "Apply half as much pressure to the shackle so that you can turn the dial.\n" +
+                    "Rotate dial to the right until you feel resistance. Rotate the dial to the right several more times to ensure you're feeling resistance at the same exact location.\n" +
+                    "Enter this number into Resistant Location. If the resistance begins at a half number, such as 14.5, enter 14.5.\n" +
+                    "\nInput the Numbers into The Calculator\n\n" +
+                    "Make sure all three numbers are entered into the calculator at the top of this page, then click Find Combos. We now have 20 possible combos, but we'll reduce this further. Keep reading!\n" +
+                    "\nFind the Right \"Third Digit\"\n\n" +
+                    "Set the dial to the first possibility for the Third Digit.\n" +
+                    "Apply full pressure upward on the shackle as if trying to open it.\n" +
+                    "Turn the dial and note how much give there is.\n" +
+                    "Loosen the shackle and set the dial to the second possibility for the Third Digit.\n" +
+                    "Apply full pressure upward on the shackle as if trying to open it.\n" +
+                    "If there is more give on the second digit, click the second digit in the calculator above. Otherwise, click the first digit.\n" +
+                    "\nTest Out the 8 Combinations on Your Lock\n\n" +
+                    "You are left with 8 possible combinations. Test them all until one works with the standard instructions below.";
+
+            AlertDialog.Builder dlg = new AlertDialog.Builder(v.getContext());
+            dlg.setMessage(inst).create().show();
+        }
+    };
     private EditText firstlocked = null;
     private EditText secondlocked = null;
     private EditText resistant = null;
-
     private Button getCombos = null;
-
     private EditText first = null;
     private EditText second = null;
     private EditText third = null;
-
     private Button thirdFirst = null;
     private Button thirdSecond = null;
-
+    View.OnClickListener comboHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+            Integer f = Integer.valueOf(firstlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
+            Double r = Double.valueOf(resistant.getText().toString());
+            Integer t;
+            calcPossibilities(f, s, r, 0);
+        }
+    };
+    View.OnClickListener firstThirdHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+            Integer f = Integer.valueOf(firstlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
+            Double r = Double.valueOf(resistant.getText().toString());
+            Integer t = Integer.valueOf(thirdFirst.getText().toString());
+            calcPossibilities(f, s, r, 1);
+        }
+    };
+    View.OnClickListener secondThirdHandler = new View.OnClickListener() {
+        public void onClick(View v) {
+            Integer f = Integer.valueOf(firstlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
+            Double r = Double.valueOf(resistant.getText().toString());
+            Integer t = Integer.valueOf(thirdSecond.getText().toString());
+            calcPossibilities(f, s, r, 2);
+        }
+    };
+    private Button instructions = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +99,12 @@ public class MainActivity extends ActionBarActivity {
 
         thirdFirst = (Button) this.findViewById(R.id.buttonThirdFirst);
         thirdSecond = (Button) this.findViewById(R.id.buttonThirdSecond);
+        instructions = (Button) this.findViewById(R.id.buttonInst);
 
         getCombos.setOnClickListener(comboHandler);
         thirdFirst.setOnClickListener(firstThirdHandler);
         thirdSecond.setOnClickListener(secondThirdHandler);
+        instructions.setOnClickListener(instHandler);
     }
 
     @Override
@@ -73,36 +128,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    View.OnClickListener comboHandler = new View.OnClickListener() {
-        public void onClick(View v) {
-            Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Integer s = Integer.valueOf(secondlocked.getText().toString());
-            Double r = Double.valueOf(resistant.getText().toString());;
-            Integer t;
-            calcPossibilities(f, s, r, 0);
-        }
-    };
-
-    View.OnClickListener firstThirdHandler = new View.OnClickListener() {
-        public void onClick(View v) {
-            Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Integer s = Integer.valueOf(secondlocked.getText().toString());
-            Double r = Double.valueOf(resistant.getText().toString());;
-            Integer t = Integer.valueOf(thirdFirst.getText().toString());
-            calcPossibilities(f, s, r, 1);
-        }
-    };
-
-    View.OnClickListener secondThirdHandler = new View.OnClickListener() {
-        public void onClick(View v) {
-            Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Integer s = Integer.valueOf(secondlocked.getText().toString());
-            Double r = Double.valueOf(resistant.getText().toString());;
-            Integer t = Integer.valueOf(thirdSecond.getText().toString());
-            calcPossibilities(f, s, r, 2);
-        }
-    };
 
     //
 
