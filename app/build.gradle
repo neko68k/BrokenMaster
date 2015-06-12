@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.example.neko.brokenmaster"
+        applicationId "com.neko.brokenmaster"
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1
