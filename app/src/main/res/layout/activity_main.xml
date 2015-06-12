@@ -49,7 +49,7 @@
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/editSecondLocked"
-            android:numeric="decimal" />
+            android:numeric="integer" />
 </LinearLayout>
 
     <LinearLayout

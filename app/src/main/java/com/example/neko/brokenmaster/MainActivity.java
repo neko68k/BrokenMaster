@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
     View.OnClickListener comboHandler = new View.OnClickListener() {
         public void onClick(View v) {
             Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Double s = Double.valueOf(secondlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
             Double r = Double.valueOf(resistant.getText().toString());;
             Integer t;
             calcPossibilities(f, s, r, 0);
@@ -87,7 +87,7 @@ public class MainActivity extends ActionBarActivity {
     View.OnClickListener firstThirdHandler = new View.OnClickListener() {
         public void onClick(View v) {
             Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Double s = Double.valueOf(secondlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
             Double r = Double.valueOf(resistant.getText().toString());;
             Integer t = Integer.valueOf(thirdFirst.getText().toString());
             calcPossibilities(f, s, r, 1);
@@ -97,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
     View.OnClickListener secondThirdHandler = new View.OnClickListener() {
         public void onClick(View v) {
             Integer f = Integer.valueOf(firstlocked.getText().toString());
-            Double s = Double.valueOf(secondlocked.getText().toString());
+            Integer s = Integer.valueOf(secondlocked.getText().toString());
             Double r = Double.valueOf(resistant.getText().toString());;
             Integer t = Integer.valueOf(thirdSecond.getText().toString());
             calcPossibilities(f, s, r, 2);
@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
 
     //
 
-    private void calcPossibilities(Integer l1, Double l2, Double r, Integer x){
+    private void calcPossibilities(Integer l1, Integer l2, Double r, Integer x){
         ArrayList<Double> s = new ArrayList<Double>();// = [];
         ArrayList<Double> t= new ArrayList<Double>();// = [];
 
@@ -120,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
                 t.add(Double.valueOf((10 * i) + l1));
 
             if (((10 * i) + l2) % 4 == mod)
-                t.add((10 * i) + l2);
+                t.add(Double.valueOf((10 * i) + l2));
         }
 
         for (Integer i = 0; i < 10; i++)
