@@ -93,11 +93,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            // Restore value of members from saved state
-            thirdFirst.setText(savedInstanceState.getString("FIRST_THIRD"));
-            thirdSecond.setText(savedInstanceState.getString("SECOND_THIRD"));
-        }
+
 
         setContentView(R.layout.activity_main);
 
@@ -114,6 +110,12 @@ public class MainActivity extends ActionBarActivity {
         thirdFirst = (Button) this.findViewById(R.id.buttonThirdFirst);
         thirdSecond = (Button) this.findViewById(R.id.buttonThirdSecond);
         instructions = (Button) this.findViewById(R.id.buttonInst);
+
+        if (savedInstanceState != null) {
+            // Restore value of members from saved state
+            thirdFirst.setText(savedInstanceState.getString("FIRST_THIRD"));
+            thirdSecond.setText(savedInstanceState.getString("SECOND_THIRD"));
+        }
 
         getCombos.setOnClickListener(comboHandler);
         thirdFirst.setOnClickListener(firstThirdHandler);
